@@ -18,13 +18,31 @@ BISS0001 Controller: The onboard chip that processes raw signals into a clean di
 
 - Interface:
 
-VCC: Power input (typically 5V - 12V).
+**VCC:** Power input (typically 5V - 12V).
 
-OUT: Digital signal (3.3V High when motion is detected / 0V Low when idle).
+**OUT:** Digital signal (3.3V High when motion is detected / 0V Low when idle).
 
-GND: Ground connection.
+**GND:** Ground connection.
 
-Functionality
+
+
+
+
+
+**Connected with :** 
+
+M5StickC Plus 1.1: Acting as the brain, display, and internal sounder.
+PROTO Hat: Provides the physical mounting and wiring interface.
+PIR Sensor (3-pin): Mounted onto the PROTO Hat.
+
+VCC : Connected to the 5V rail on the PROTO Hat.
+
+GND : Connected to the GND rail.
+
+O/P (Out) : Connected to G26 (Standard GPIO for the Hat interface).
+
+
+
 -------------
 
 Local Functionality
@@ -37,4 +55,4 @@ Local Functionality
 
 
 
-<img src="/Pictures/PIR/PIR-1.png" width="70%" height="40%">
+<img src="/Pictures/PIR/PIR-1.png" width="50%" height="40%">
