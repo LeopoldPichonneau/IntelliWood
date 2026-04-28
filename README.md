@@ -32,7 +32,12 @@ All sub-systems transmit data over a local Wi-Fi network to a central dedicated 
 - PIR detector
 
 
+<<<<<<< HEAD
 ### Devices list:
+=======
+Devices list:
+
+>>>>>>> 0ef2c02 (buzzer)
 - NFC reader 
 - LED
 - Keypad
