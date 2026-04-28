@@ -24,4 +24,4 @@ the system, it activates the buzzer to make the alert noticeable nearby. It can
 be used together with detector or monitoring nodes to provide immediate local
 feedback during an alarm scenario.
 
-<img src="Pictures/Buzzer/Buzzer.png" width="70%">
+<img src="/Pictures/Buzzer/Buzzer.png" width="70%">
