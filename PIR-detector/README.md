@@ -37,4 +37,4 @@ Local Functionality
 
 
 
-<img src="Pictures/PIR/PIR-1.png" width="70%" height="40%">
+<img src="/Pictures/PIR/PIR-1.png" width="70%" height="40%">
