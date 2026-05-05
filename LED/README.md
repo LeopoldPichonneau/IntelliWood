@@ -9,9 +9,7 @@ depending on the current state or alert condition.
 Connected devices
 -----------------
 
-- RGB LED
 - Resistors for the red, green, and blue channels
-- VCC or common pin, depending on the RGB LED type
 - Red channel pin: ...
 - Green channel pin: ...
 - Blue channel pin: ...
