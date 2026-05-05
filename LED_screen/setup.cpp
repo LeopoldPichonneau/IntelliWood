@@ -9,4 +9,36 @@
  * 
  * This whole comment block can be deleted
  * */
+#include <MatrixPanel_I2S_DMA.h>
 
+MatrixPanel_I2S_DMA *display = nullptr;
+
+void setup() {
+
+  HUB75_I2S_CFG mxconfig(
+    64, 32, 1,
+    {
+      33, // R1
+      27, // G1
+      32, // B1
+      14, // R2
+      12, // G2
+      13, // B2
+      23, // A
+      19, // B
+      5,  // C
+      17, // D
+      16, // CLK
+      4,  // LAT
+      15  // OE
+    }
+  );
+
+  display = new MatrixPanel_I2S_DMA(mxconfig);
+  display->begin();
+
+  display->fillScreen(display->color565(255, 0, 0)); // rouge
+}
+
+void loop() {
+}
