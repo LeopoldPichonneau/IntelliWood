@@ -61,22 +61,11 @@ The ESP32-S2 may require going into a 'Download Mode' when first flashing it. Th
 4) While holding the 0 button, press and release the RST button.
 5) Release the 0 button.
 
-After that in terminal:
-'''
-lsusb
-'''
-should show the port properly. 
+After that in terminal `lsusb` should show the port properly. 
 
-And if you run 
-'''
-ls /dev/ttyACM*
-'''
-then it should show the correct port aswell. No need to manually input it though, as at this point IoTEmpower finds it automatically.
+And if you run `ls /dev/ttyACM*` then it should show the correct port aswell. No need to manually input it though, as at this point IoTEmpower finds it automatically.
 
-To first pre-flash it, you need to go to {IOT_SYSTEMS_ROOT}/iot-systems/IntelliWood/Keypad and run there:
-'''
-deploy serial
-'''
+To first pre-flash it, you need to go to {IOT_SYSTEMS_ROOT}/iot-systems/IntelliWood/Keypad and run there `deploy serial`.
 
 After that the device can be flashed OTA.
 
@@ -84,7 +73,8 @@ After that the device can be flashed OTA.
 Tutorial for running the keypad
 -------------------------------
 To run the code, at this stage of the project, there is a bug in the IoTEmpire source files, specifically in the dev_mpr121.cpp file. You need to swap inside {IOT_SYSTEMS_ROOT}/iot-systems/IntelliWood/Keypad/build/src/dev_mpr121.cpp the content into this:
-'''cpp
+
+```cpp
 // dev_mpr121.cpp
 #include "dev_mpr121.h"
 
@@ -129,6 +119,6 @@ bool MPR121::measure() {
     
     return true;
 }
-'''
+```
 
 After that, deploy again, and now it should work.
