@@ -21,13 +21,13 @@ Connected devices
 
 - ***GND:*** Connected to GND.
 
-- ***SCL:*** Connected to GPIO 22 (default I2C Clock).
+- ***SCL:*** Connected to GPIO 5.
 
-- ***SDA:*** Connected to GPIO 21 (default I2C Data).
+- ***SDA:*** Connected to GPIO 6.
 
-- ***IRQ:*** Connected to GPIO 4 (Optional, used for interrupt-driven detection).
+- ***IRQ:*** Not connected.
 
-**Electrodes:** Conductive materials (foil, wires, metal) connected to the 12 input pads of the MPR121.
+
 
 Functionality
 -------------
@@ -49,3 +49,76 @@ Functionality
 **-Touch-to-Action Logic:** Locally, the ESP32 processes which electrode was touched (0-11) and can execute complex logic, such as "Long Press" for dimming lights or "Double Tap" to arm a security system.
 
 **-Coordinated Feedback:** This node can work with a "Sound Node" or "Light Node" on the network to provide immediate audio-visual confirmation whenever a touch is registered.
+
+
+Tutorial for pre-flashing the ESP32
+-------------------------------
+The ESP32-S2 may require going into a 'Download Mode' when first flashing it. This can be reliably diagnosed, when the MCU is in the USB port, but IoTEmpower / Arduino IDE does not see the device. To go into 'Download Mode', follow these steps:
+
+1) Plugging in the ESP32-S2
+2) Find the 0 and RST buttons on the sides
+3) Press and hold the 0 button.
+4) While holding the 0 button, press and release the RST button.
+5) Release the 0 button.
+
+After that in terminal `lsusb` should show the port properly. 
+
+And if you run `ls /dev/ttyACM*` then it should show the correct port aswell. No need to manually input it though, as at this point IoTEmpower finds it automatically.
+
+To first pre-flash it, you need to go to {IOT_SYSTEMS_ROOT}/iot-systems/IntelliWood/Keypad and run there `deploy serial`.
+
+After that the device can be flashed OTA.
+
+
+Tutorial for running the keypad
+-------------------------------
+To run the code, at this stage of the project, there is a bug in the IoTEmpire source files, specifically in the dev_mpr121.cpp file. You need to swap inside {IOT_SYSTEMS_ROOT}/iot-systems/IntelliWood/Keypad/build/src/dev_mpr121.cpp the content into this:
+
+```cpp
+// dev_mpr121.cpp
+#include "dev_mpr121.h"
+
+MPR121::MPR121(const char* name) :
+    I2C_Device(name) {
+    
+    add_subdevice(new Subdevice(F(""))); // 0
+    // from adafruit example:
+    // Default address is 0x5A, if tied to 3.3V its 0x5B
+    // If tied to SDA its 0x5C and if SCL then 0x5D
+    set_address(0x5A);
+}
+
+void MPR121::i2c_start() {
+    sensor = new Adafruit_MPR121();
+
+    if(sensor) {
+        sensor->begin(get_address());
+        sensor->setAutoconfig(true); //if this is not here, then does not work at all
+        _started = true;
+    } else {
+        ulog(F("Can't reserve memory for MPR121."));
+    }
+}
+
+
+bool MPR121::measure() {
+
+    uint16_t touched = sensor->touched();
+
+    ulog(F("Meaningless print")); //if this is not here, then consecutive presses on the same button dont work
+
+    value(0).clear();
+    for(int i=0; i<12; i++) {
+        if(touched&2048) {
+            value(0).add(F("1"));
+        } else {
+            value(0).add(F("0"));
+        }
+        touched = touched << 1;
+    }
+    
+    return true;
+}
+```
+
+After that, deploy again, and now it should work.
