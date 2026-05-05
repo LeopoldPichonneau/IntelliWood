@@ -41,3 +41,6 @@ Sensitivity Tuning: Via the blue onboard potentiometer, the user can hardware-ca
 ***-Visual & Audible Alert:*** Locally, the node uses the M5Stick's built-in LCD to flash a red warning and the internal buzzer to sound a high-pitch alarm to notify nearby occupants.
 
 ***-Coordinated Response:*** In concert with other nodes, it can trigger a "Ventilation Node" to shut down fans (to avoid spreading fire) or a "Notification Node" to send an emergency SMS to a supervisor via Wi-Fi.
+
+
+<img src="/Pictures/Flame-detector/flame-scheme.png" width="70%">
