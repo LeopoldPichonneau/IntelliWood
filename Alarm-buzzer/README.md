@@ -8,9 +8,9 @@ audible alert when another node or scenario triggers an alarm condition.
 Connected devices
 -----------------
 
-100 Ohm resistor (optional) 
-VCC+: 5V
-VCC-: Ground
+- 100 Ohm resistor (optional)
+- VCC+: 5V
+- VCC-: Ground
 
 PIN:
 ...

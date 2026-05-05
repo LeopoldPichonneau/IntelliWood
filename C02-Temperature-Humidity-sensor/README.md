@@ -12,10 +12,10 @@ granules are stored in a suitable environment.
 Connected devices
 -----------------
 
-VCC: 3.3V or 5V depending on the sensor module
-GND: Ground
-SDA: ...
-SCL: ...
+- VCC: 3.3V or 5V depending on the sensor module
+- GND: Ground
+- SDA: ...
+- SCL: ...
 
 Functionality
 -------------
