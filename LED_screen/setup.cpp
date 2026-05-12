@@ -37,7 +37,7 @@ void setup() {
   display = new MatrixPanel_I2S_DMA(mxconfig);
   display->begin();
 
-  display->fillScreen(display->color565(255, 0, 0)); // rouge
+  display->fillScreen(display->color565(255, 0, 0)); // red
 }
 
 void loop() {
