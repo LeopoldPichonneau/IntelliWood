@@ -18,11 +18,11 @@ BISS0001 Controller: The onboard chip that processes raw signals into a clean di
 
 - Interface:
 
-**VCC:** Power input (typically 5V - 12V).
+**VCC:** Power input (typically 5V - 12V). "+"
 
-**OUT:** Digital signal (3.3V High when motion is detected / 0V Low when idle).
+**OUT:** Digital signal (3.3V High when motion is detected / 0V Low when idle). "O"
 
-**GND:** Ground connection.
+**GND:** Ground connection. "|"
 
 
 

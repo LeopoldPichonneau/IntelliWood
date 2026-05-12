@@ -10,3 +10,10 @@
  * This whole comment block can be deleted
  * */
 
+
+ #include <iotempower.h>
+
+void setup_devices() {
+    // Tu dis à IoTempower : "J'ai une entrée (input) appelée 'motion', branchée sur la broche 'G26'"
+    input(motion, "G26", "pullup");
+}
