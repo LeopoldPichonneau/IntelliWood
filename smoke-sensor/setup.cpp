@@ -1,1 +1,1 @@
-#include <iotempower.h>
+input(smoke, 39, "no smoke", "smoke detected");
