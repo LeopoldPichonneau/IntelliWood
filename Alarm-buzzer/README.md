@@ -9,8 +9,9 @@ Connected devices
 -----------------
 
 - 100 Ohm resistor (optional)
-- VCC+: 5V
-- VCC-: Ground
+- VCC+: 3.3V
+- VCC-: GND
+- SIGNAL: 39
 
 PIN:
 ...
@@ -25,3 +26,10 @@ be used together with detector or monitoring nodes to provide immediate local
 feedback during an alarm scenario.
 
 <img src="/Pictures/Buzzer/Buzzer.png" width="70%">
+
+
+
+MQTT
+----
+
+To run it you need to send to "Alarm-buzzer/alarm/set" a message that is either 0 (off) or 200 (on).
