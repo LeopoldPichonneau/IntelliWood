@@ -8,7 +8,6 @@ audible alert when another node or scenario triggers an alarm condition.
 Connected devices
 -----------------
 
-- 100 Ohm resistor (optional)
 - VCC+: 3.3V
 - VCC-: GND
 - SIGNAL: 39
