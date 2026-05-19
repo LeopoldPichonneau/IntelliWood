@@ -1,5 +1,1 @@
-# The last line of this file holds the symmetric
-# key for the netrepl communication with the node
-# If the last line is not exactly 64 bytes long, the whole file will be
-# overwritten during initialization of the microcontroller.
-00001111aaaabbbb00001111aaaabbbb00001111aaaabbbb00001111aaaabbbb trigger renew
+0C9H68MpqWUs2L/w2CoTI@2RuDQTFC14zTkvxuM45K_6Xijb15Q9eM6R6wsr+vua
