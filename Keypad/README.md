@@ -122,3 +122,11 @@ bool MPR121::measure() {
 ```
 
 After that, deploy again, and now it should work.
+
+
+
+Behavior
+--------
+`mqtt_starter scanif` to run the MQTT broker (skip if broker is on router)
+Navigate to the dir of this node, and then in one terminal `mqtt_listen`, and in another `deploy`
+

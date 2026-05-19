@@ -6,6 +6,8 @@
 tmp/
 .idea/
 .local
+.venv
+.python-version
 
 .directory
 .vscode
