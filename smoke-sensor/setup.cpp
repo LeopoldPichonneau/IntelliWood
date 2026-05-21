@@ -1,1 +1,1 @@
-input(smoke, 39, "no smoke", "smoke detected");
+input(smoke, 39, "smoke detected", "no smoke");
