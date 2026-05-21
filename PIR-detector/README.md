@@ -55,4 +55,4 @@ Local Functionality
 
 
 
-<img src="/Pictures/PIR/PIR-1.png" width="50%" height="40%">
+<img src="/Pictures/PIR/PIR3.png" width="50%" height="40%">
