@@ -43,8 +43,6 @@ All sub-systems transmit data over a local Wi-Fi network to a central dedicated 
 
 ## Contributors
 
-| | Name | GitHub |
-|---|---|---|
-| ![LeopoldPichonneau](https://github.com/LeopoldPichonneau.png?size=40) | Leopold Pichonneau | [@LeopoldPichonneau](https://github.com/LeopoldPichonneau) |
-| ![KPPHC](https://github.com/KPPHC.png?size=40) | KPPHC | [@KPPHC](https://github.com/KPPHC) |
-| ![arthurmrimri-del](https://github.com/arthurmrimri-del.png?size=40) | arthrima | [@arthurmrimri-del](https://github.com/arthurmrimri-del) |
+- [@LeopoldPichonneau](https://github.com/LeopoldPichonneau)
+- [@KPPHC](https://github.com/KPPHC)
+- [@arthurmrimri-del](https://github.com/arthurmrimri-del)
