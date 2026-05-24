@@ -1,0 +1,109 @@
+---
+title: "Quickstart"
+description: "Set up and deploy IntelliWood step by step"
+icon: "rocket"
+---
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- [IoTempower](https://github.com/iot-systems/iotempower) installed on your machine
+- An available Wi-Fi network
+- A configured Raspberry Pi (or equivalent server)
+- The hardware for each node you want to deploy
+
+## Step 1: Configure the network
+
+Edit the `system.conf` file at the project root with your Wi-Fi credentials and MQTT broker address.
+
+```bash
+# Your Wi-Fi network name
+IOTEMPOWER_AP_NAME="your-ssid"
+
+# Wi-Fi password
+IOTEMPOWER_AP_PASSWORD="your-password"
+
+# MQTT broker address
+IOTEMPOWER_MQTT_HOST="_gateway"
+```
+
+<Tip>
+  If you are running `mqtt_starter` on your computer instead of the router, replace `_gateway` with your machine's local IP address.
+</Tip>
+
+## Step 2: Prepare a node
+
+Each node corresponds to a subfolder in the project. The structure is always the same:
+
+```
+NodeName/
+├── setup.cpp    # IoTempower device configuration
+├── node.conf    # Board type
+├── key.txt      # OTA encryption key
+└── README.md    # Node documentation
+```
+
+### First flash (serial connection)
+
+For ESP32 boards that have never been flashed with IoTempower, an initial serial flash is required:
+
+```bash
+cd NodeName
+deploy serial
+```
+
+<Note>
+  ESP32-S2 boards (used for the Keypad) may require **Download Mode**:
+  1. Hold the **0** button
+  2. Press and release **RST**
+  3. Release the **0** button
+  
+  Verify detection with `ls /dev/ttyACM*`.
+</Note>
+
+### OTA flash (after first deployment)
+
+Once the first flash is done, updates are sent over the network:
+
+```bash
+cd NodeName
+deploy
+```
+
+## Step 3: Start the MQTT broker
+
+In a separate terminal, start the MQTT broker if it is not integrated in the router:
+
+```bash
+mqtt_starter scanif
+```
+
+## Step 4: Verify MQTT messages
+
+Listen to messages published by your nodes:
+
+```bash
+mqtt_listen
+```
+
+You should see sensor data appearing in real time.
+
+## Step 5: Deploy each subsystem
+
+See the documentation for each subsystem for specific instructions:
+
+<CardGroup cols={2}>
+  <Card title="Ambient Sensing" icon="wind" href="/subsystems/ambient-sensing">
+    CO2, temperature, humidity, smoke, flame
+  </Card>
+  <Card title="Access Control" icon="door-open" href="/subsystems/access-control">
+    NFC + solenoid lock
+  </Card>
+  <Card title="Storage Logging" icon="boxes-stacked" href="/subsystems/storage-logging">
+    Keypad + buzzer + LED
+  </Card>
+  <Card title="Dashboard" icon="mobile-screen" href="/subsystems/dashboard">
+    Mobile companion app
+  </Card>
+</CardGroup>

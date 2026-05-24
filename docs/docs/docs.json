@@ -1,0 +1,81 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "IntelliWood",
+  "colors": {
+    "primary": "#92400E",
+    "light": "#D97706",
+    "dark": "#78350F"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Docs",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "quickstart",
+              "architecture"
+            ]
+          },
+          {
+            "group": "Subsystems",
+            "pages": [
+              "subsystems/ambient-sensing",
+              "subsystems/access-control",
+              "subsystems/storage-logging",
+              "subsystems/dashboard"
+            ]
+          },
+          {
+            "group": "Hardware nodes",
+            "pages": [
+              "nodes/co2-sensor",
+              "nodes/smoke-sensor",
+              "nodes/flame-detector",
+              "nodes/pir-detector",
+              "nodes/nfc-reader",
+              "nodes/locker",
+              "nodes/keypad",
+              "nodes/alarm-buzzer",
+              "nodes/led"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/system-conf",
+              "configuration/iotempower",
+              "configuration/mqtt"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/LeopoldPichonneau/IntelliWood",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+"navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/LeopoldPichonneau/IntelliWood"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/LeopoldPichonneau/IntelliWood"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+---
+title: "Secure Access Control"
+description: "NFC system to restrict entry to the storage room"
+icon: "lock"
+---
+
+## Overview
+
+To maintain the safety of the storage area, an NFC lock system restricts entry. Only users with an authorized keycard or access to the companion dashboard can unlock the door.
+
+## Nodes involved
+
+<CardGroup cols={2}>
+  <Card title="NFC Reader" icon="id-card" href="/nodes/nfc-reader">
+    RFID-RC522 connected to a Wemos D1 Mini via SPI
+  </Card>
+  <Card title="Locker" icon="door-closed" href="/nodes/locker">
+    Solenoid lock controlled via relay by a Wemos D1 Mini
+  </Card>
+</CardGroup>
+
+## How it works
+
+```
+NFC card placed near the reader
+         ↓
+Card UID is read
+         ↓
+UID checked against authorized access list
+         ↓
+    ┌────┴────┐
+ Authorized  Unauthorized
+    ↓              ↓
+Unlock         Access
+command →      denied
+Locker node
+```
+
+## Remote unlock via dashboard
+
+In addition to the physical NFC reader, the mobile app allows remote unlocking by publishing an MQTT command directly to the locker topic.
+
+## MQTT topics
+
+| Topic | Direction | Values | Description |
+|-------|-----------|--------|-------------|
+| `NFC-reader/card` | node → server | `<uid>` | UID of the card read |
+| `Locker/lock/set` | server → node | `0` / `1` | `0` = locked, `1` = unlocked |
+
+## Lock power supply
+
+The solenoid lock requires **12V DC** and draws more current than the microcontroller can supply directly. A relay module separates the low-voltage control circuit from the lock's power circuit.
+
+<Warning>
+  Never connect the solenoid lock directly to the Wemos D1 Mini pins. A relay is mandatory.
+</Warning>

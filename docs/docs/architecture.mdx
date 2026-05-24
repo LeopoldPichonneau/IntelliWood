@@ -1,0 +1,92 @@
+---
+title: "System Architecture"
+description: "Hardware and software architecture overview of IntelliWood"
+icon: "diagram-project"
+---
+
+## Overview
+
+IntelliWood consists of three types of nodes that all communicate via **MQTT** over the local Wi-Fi network to a central server.
+
+```
+┌──────────────────────────────────────────────────────┐
+│                   Central Server                      │
+│                  (Raspberry Pi)                       │
+│  - MQTT Broker        - REST API                     │
+│  - Weather forecasts  - Database                     │
+└───────────┬──────────────────┬───────────────────────┘
+            │    Wi-Fi / MQTT  │
+     ┌──────┴──────┐    ┌──────┴──────┐
+     │  M5StickC   │    │  Wemos D1   │
+     │  Plus 1.1   │    │    Mini     │
+     │             │    │             │
+     │ • CO2       │    │ • NFC       │
+     │ • Smoke     │    │ • Locker    │
+     │ • Flame     │    │ • Buzzer    │
+     │ • PIR       │    │ • LED       │
+     └─────────────┘    └─────────────┘
+                        ┌─────────────┐
+                        │  ESP32-S2   │
+                        │  (Keypad)   │
+                        │             │
+                        │ • Keypad    │
+                        │ • Buzzer    │
+                        │ Deep Sleep  │
+                        └─────────────┘
+```
+
+## Microcontrollers used
+
+<CardGroup cols={3}>
+  <Card title="M5StickC Plus 1.1" icon="microchip">
+    Used for ambient monitoring and safety. Integrates an LCD screen, buzzer and Wi-Fi connectivity.
+  </Card>
+  <Card title="Wemos D1 Mini" icon="microchip">
+    Used for access control (NFC + lock) and visual/audio indicators.
+  </Card>
+  <Card title="ESP32-S2" icon="microchip">
+    Used for the stock input keypad. Operates in **Deep Sleep** to conserve energy.
+  </Card>
+</CardGroup>
+
+## Communication protocol
+
+All nodes use **MQTT** (port 1883) to publish and subscribe to messages.
+
+| Topic | Direction | Description |
+|-------|-----------|-------------|
+| `node/sensor` | node → server | Sensor values |
+| `node/actuator/set` | server → node | Actuator commands |
+
+## Data flow — Storage logging
+
+The Keypad node implements a specific wake/sleep cycle:
+
+```
+1. Hardware interrupt (button pressed)
+       ↓
+2. ESP32-S2 wakes from Deep Sleep
+       ↓
+3. Internal log updated
+       ↓
+4. .csv file synced
+       ↓
+5. Update sent to Raspberry Pi over Wi-Fi
+       ↓
+6. Waits for response containing the critical threshold datetime
+       ↓
+7. Datetime stored locally
+       ↓
+8. Returns to Deep Sleep
+       ↓
+9. If datetime reached with no new input → Buzzer + blinking LED
+```
+
+## Power supply
+
+| Node | Power |
+|------|-------|
+| CO2 / Ambient sensors (M5StickC) | Wall socket |
+| NFC + Lock (Wemos D1) | Wall socket |
+| Solenoid lock | Separate 12V DC supply via relay |
+| Keypad (ESP32-S2) | Deep Sleep — optimized battery life |

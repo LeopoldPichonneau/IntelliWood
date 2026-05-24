@@ -1,0 +1,61 @@
+---
+title: "PIR Detector"
+description: "Motion detection via passive infrared"
+icon: "person-running"
+---
+
+## Description
+
+This node detects motion in the storage room using a PIR (passive infrared) sensor connected to an M5StickC Plus 1.1 via a PROTO Hat.
+
+**Subsystem:** [Ambient Sensing & Safety](/subsystems/ambient-sensing)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | M5StickC Plus 1.1 |
+| Interface | PROTO Hat |
+| PIR sensor | Standard 3-pin module |
+| Internal components | Fresnel lens, pyroelectric sensor, BISS0001 controller |
+
+## Wiring
+
+| PIR pin | Connection |
+|---------|-----------|
+| VCC (+) | 5V rail on PROTO Hat |
+| GND (\|) | GND rail |
+| OUT (O) | G26 (standard GPIO on PROTO Hat) |
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+input(pir, 39, "no motion", "motion detected");
+```
+
+## MQTT topic
+
+| Topic | Possible values |
+|-------|----------------|
+| `PIR-detector/pir` | `motion detected` / `no motion` |
+
+## How it works
+
+The PIR detects **changes in infrared radiation** caused by moving heat sources (people, animals). It only reacts to differential changes — a stationary heat source does not trigger an alert.
+
+| Parameter | Value |
+|-----------|-------|
+| Range | Up to 6 meters |
+| Detection angle | 120° (via Fresnel lens) |
+| Output signal | 3.3V (HIGH) when motion detected |
+
+## Available adjustments
+
+The module potentiometers (if present) allow adjustment of:
+- **Sensitivity**: detection distance
+- **Dwell time**: how long the signal stays HIGH after detection
+
+## Use in the scenario
+
+The PIR detector indicates whether someone has entered the storage room, which can be correlated with NFC unlock events to detect unauthorized access.

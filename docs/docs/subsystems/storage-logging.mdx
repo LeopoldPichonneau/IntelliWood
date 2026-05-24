@@ -1,0 +1,71 @@
+---
+title: "Storage Logging & Forecasting"
+description: "Pellet inventory logging and critical threshold forecasting"
+icon: "boxes-stacked"
+---
+
+## Overview
+
+The core part of the system is a 3D-printed logging unit positioned near the bunker refilling station. It tracks the inventory of pellet bags and receives a forecast from the central server predicting when the level will become critical.
+
+## The problem it solves
+
+Without IntelliWood, if the bunker empties completely, the automatic ignition system keeps attempting to ignite dry. These repeated dry-fire attempts destroy the ignition stick, requiring a costly replacement.
+
+## Nodes involved
+
+<CardGroup cols={3}>
+  <Card title="Keypad" icon="keyboard" href="/nodes/keypad">
+    MPR121 capacitive keypad for entering the number of bags used
+  </Card>
+  <Card title="Buzzer" icon="bell" href="/nodes/alarm-buzzer">
+    Audible alarm when the critical threshold approaches
+  </Card>
+  <Card title="RGB LED" icon="lightbulb" href="/nodes/led">
+    Blinking visual alert indicator
+  </Card>
+</CardGroup>
+
+## Keypad node lifecycle
+
+The ESP32-S2 runs in **Deep Sleep** to maximize battery life. It only wakes on user interaction:
+
+<Steps>
+  <Step title="Hardware interrupt">
+    The user presses a button, triggering an interrupt that wakes the ESP32-S2 from Deep Sleep.
+  </Step>
+  <Step title="Bag count input">
+    The user enters the number of bags used to refill the bunker via the capacitive keypad.
+  </Step>
+  <Step title="Log update">
+    The node updates its internal `.csv` file with the new entry.
+  </Step>
+  <Step title="Wi-Fi sync">
+    The update is sent to the Raspberry Pi over Wi-Fi.
+  </Step>
+  <Step title="Forecast received">
+    Instead of closing the connection immediately, the node waits for the server response containing the **datetime** at which the fuel level will reach the critical threshold.
+  </Step>
+  <Step title="Alert stored">
+    The datetime is stored locally. If no new input is made before that date, the buzzer and LED are activated.
+  </Step>
+  <Step title="Back to Deep Sleep">
+    The ESP32-S2 returns to Deep Sleep until the next interaction.
+  </Step>
+</Steps>
+
+## Local alarm trigger
+
+If the critical threshold datetime is reached without a new input:
+
+- The **buzzer** sounds an audible alarm
+- The **RGB LED** blinks to draw visual attention
+
+These local alerts work independently of network connectivity, ensuring an alert even if Wi-Fi is unavailable.
+
+## MQTT topics
+
+| Topic | Direction | Description |
+|-------|-----------|-------------|
+| `Keypad/alarm/set` | server → node | Buzzer command (`0` / `200`) |
+| `LED/rgb/set` | server → node | LED RGB color |

@@ -1,0 +1,53 @@
+---
+title: "Alarm Buzzer"
+description: "Audible alert for critical system conditions"
+icon: "bell"
+---
+
+## Description
+
+This node controls an alarm buzzer connected to a Wemos D1 Mini. It provides a local audible alert when an alarm condition is triggered by another node or by the server.
+
+**Subsystem:** [Storage Logging & Forecasting](/subsystems/storage-logging)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | Wemos D1 Mini |
+| Actuator | Piezoelectric buzzer |
+| Interface | PWM |
+| Power | 3.3V |
+
+## Wiring
+
+| Pin | Connection |
+|-----|-----------|
+| VCC+ | 3.3V |
+| VCC- | GND |
+| SIGNAL | GPIO 39 |
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+pwm(alarm, 39, 2000);
+```
+
+The buzzer is driven by **PWM** at 2000 Hz to produce the alarm sound.
+
+## MQTT topic
+
+| Topic | Value | Effect |
+|-------|-------|--------|
+| `Alarm-buzzer/alarm/set` | `0` | Buzzer OFF |
+| `Alarm-buzzer/alarm/set` | `200` | Buzzer ON |
+
+## Use in the scenario
+
+The buzzer is activated by the central server when:
+- The consumption forecast indicates the bunker will reach its critical threshold
+- A fire detection (smoke or flame) is confirmed
+- Any other alarm condition configured in the scenario
+
+It works alongside the [RGB LED](/nodes/led) for a combined audio-visual alert.

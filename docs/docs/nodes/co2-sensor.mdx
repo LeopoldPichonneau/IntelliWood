@@ -1,0 +1,59 @@
+---
+title: "CO2 / Temperature / Humidity Sensor"
+description: "Air quality and ambient conditions monitoring in the storage room"
+icon: "cloud"
+---
+
+## Description
+
+This node monitors air quality and environmental conditions in the storage room using a CO2, temperature and humidity sensor connected to an M5StickC Plus 1.1.
+
+**Subsystem:** [Ambient Sensing & Safety](/subsystems/ambient-sensing)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | M5StickC Plus 1.1 |
+| Sensor | SCD4x (CO2 + Temperature + Humidity) |
+| Interface | I2C |
+| Power | Wall socket |
+
+## Wiring
+
+| Sensor pin | M5StickC pin |
+|------------|-------------|
+| VCC | 3.3V or 5V depending on module |
+| GND | GND |
+| SDA | GPIO 39 |
+| SCL | GPIO 40 |
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+scd4x(gas, 5.0, 60, 101300).i2c(39, 40);
+```
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `5.0` | altitude (m) | Site altitude |
+| `60` | interval (s) | Measurement frequency |
+| `101300` | pressure (Pa) | Reference atmospheric pressure |
+
+```
+# node.conf
+board="lolin s2 mini"
+```
+
+## MQTT topic
+
+| Topic | Format | Example |
+|-------|--------|---------|
+| `C02-Temperature-Humidity-sensor/gas` | `co2,temp,humidity` | `523,21.3,45.2` |
+
+## Role in the system
+
+- **Storage quality**: high humidity degrades pellets
+- **Safety**: abnormal CO2 levels can indicate incomplete combustion or a smoldering fire
+- **History**: data is archived by the server for long-term trend analysis

@@ -1,0 +1,71 @@
+---
+title: "IoTempower"
+description: "Overview of the IoTempower framework used by IntelliWood"
+icon: "cube"
+---
+
+## What is IoTempower?
+
+[IoTempower](https://github.com/iot-systems/iotempower) is the IoT framework used by all IntelliWood nodes. It simplifies embedded node development by providing an abstraction layer for sensors, actuators and MQTT communication.
+
+## Node structure
+
+Each IoTempower node is a folder containing:
+
+```
+NodeName/
+├── setup.cpp    # Device declarations
+├── node.conf    # Board type and options
+├── key.txt      # OTA encryption key
+└── README.md    # Documentation
+```
+
+## setup.cpp file
+
+This is the main configuration file. It declares connected devices using the IoTempower API:
+
+```cpp
+// SCD4x sensor (CO2 + Temp + Humidity) via I2C
+scd4x(gas, 5.0, 60, 101300).i2c(39, 40);
+
+// Digital input with labels
+input(smoke, 39, "smoke detected", "no smoke");
+
+// PWM for buzzer
+pwm(alarm, 39, 2000);
+
+// MPR121 capacitive keypad
+mpr121(cap).i2c(5, 6);
+```
+
+## node.conf file
+
+Defines the board type to use for compilation and flashing:
+
+```bash
+board="lolin s2 mini"    # ESP32-S2
+board="esp32"            # Generic ESP32
+```
+
+## Deployment commands
+
+| Command | Description |
+|---------|-------------|
+| `deploy serial` | First flash via USB cable |
+| `deploy` | OTA update over Wi-Fi |
+| `mqtt_listen` | Listen to all MQTT messages |
+| `mqtt_starter scanif` | Start the local MQTT broker |
+
+## Boards used in IntelliWood
+
+| Node | Board |
+|------|-------|
+| Keypad | Lolin S2 Mini (ESP32-S2) |
+| NFC Reader | ESP32 |
+| Locker | ESP32 |
+| LED | ESP32 |
+| Alarm Buzzer | Lolin S2 Mini |
+| CO2 Sensor | M5StickC Plus 1.1 |
+| PIR Detector | M5StickC Plus 1.1 |
+| Flame Detector | M5StickC Plus 1.1 |
+| Smoke Sensor | M5StickC Plus 1.1 |

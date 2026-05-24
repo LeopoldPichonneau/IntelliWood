@@ -1,0 +1,76 @@
+---
+title: "MQTT Reference"
+description: "All MQTT topics published and subscribed to by IntelliWood nodes"
+icon: "arrows-left-right"
+---
+
+## Overview
+
+IntelliWood uses MQTT as its universal communication protocol. Nodes publish sensor data and subscribe to actuator commands.
+
+## Topic naming convention
+
+```
+<NodeName>/<device>[/set]
+```
+
+- Without `/set`: data published by the node (sensor → server)
+- With `/set`: command sent to the node (server → actuator)
+
+## Full topic reference
+
+### Ambient sensing & safety
+
+| Topic | Direction | Format | Description |
+|-------|-----------|--------|-------------|
+| `C02-Temperature-Humidity-sensor/gas` | node → | `co2,temp,hum` | CO2 (ppm), temperature (°C), humidity (%) |
+| `smoke-sensor/smoke` | node → | `smoke detected` / `no smoke` | MQ2 binary detection |
+| `Flame-detector/flame` | node → | `flame detected` / `no flame` | Infrared flame detection |
+| `PIR-detector/pir` | node → | `motion detected` / `no motion` | Motion in storage room |
+
+### Access control
+
+| Topic | Direction | Format | Description |
+|-------|-----------|--------|-------------|
+| `NFC-reader/card` | node → | `<uid_hex>` | UID of the NFC card read |
+| `Locker/lock/set` | → node | `0` / `1` | `0` = locked, `1` = unlocked |
+
+### Storage logging
+
+| Topic | Direction | Format | Description |
+|-------|-----------|--------|-------------|
+| `Keypad/cap` | node → | `000000000000` | State of the 12 capacitive electrodes |
+| `Keypad/alarm/set` | → node | `0` / `200` | Keypad buzzer: 0=off, 200=on |
+| `Alarm-buzzer/alarm/set` | → node | `0` / `200` | Alarm buzzer: 0=off, 200=on |
+| `LED/rgb/set` | → node | `R,G,B` | LED color (0–255 per channel) |
+
+## Listening with mqtt_listen
+
+To listen to all messages in real time:
+
+```bash
+mqtt_listen
+```
+
+To filter on a specific node:
+
+```bash
+mqtt_listen "C02-Temperature-Humidity-sensor/#"
+```
+
+## Sending a command manually
+
+```bash
+# Unlock the door
+mqtt_pub Locker/lock/set 1
+
+# Activate the buzzer
+mqtt_pub Alarm-buzzer/alarm/set 200
+
+# Turn off the LED
+mqtt_pub LED/rgb/set 0,0,0
+```
+
+<Note>
+  The MQTT broker must be running before sending or receiving messages. Use `mqtt_starter scanif` if you are hosting the broker locally.
+</Note>

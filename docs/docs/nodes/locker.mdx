@@ -1,0 +1,53 @@
+---
+title: "Locker"
+description: "Solenoid lock control via relay to secure the storage room"
+icon: "door-closed"
+---
+
+## Description
+
+This node controls a solenoid lock through a relay module connected to a Wemos D1 Mini. It receives commands from the access control system to lock or unlock the storage room door.
+
+**Subsystem:** [Secure Access Control](/subsystems/access-control)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | Wemos D1 Mini |
+| Actuator | Solenoid lock |
+| Intermediary | Relay module |
+| Lock power | External 12V DC |
+| Relay power | 5V |
+
+## Wiring
+
+| Connection | Details |
+|-----------|---------|
+| Relay VCC | 5V |
+| Relay GND | GND |
+| Relay IN | — (pin to be defined) |
+| Relay NO contact | Solenoid positive wire |
+| Relay COM contact | 12V supply positive wire |
+| Solenoid negative wire | 12V supply GND |
+
+<Warning>
+  The 12V solenoid power supply is **entirely separate** from the Wemos D1 Mini circuit. Never mix the two circuits.
+</Warning>
+
+## MQTT topic
+
+| Topic | Value | Description |
+|-------|-------|-------------|
+| `Locker/lock/set` | `0` | Locked |
+| `Locker/lock/set` | `1` | Unlocked |
+
+## Relay safety
+
+The relay separates the low-voltage control signal (3.3V from the Wemos) from the high-power solenoid circuit (12V). This isolation protects the microcontroller and prevents damage from the solenoid's current spikes.
+
+## Unlock triggers
+
+Unlocking can be triggered by two sources:
+- The [NFC Reader](/nodes/nfc-reader) after validating an authorized card
+- The mobile dashboard via a direct command on the MQTT topic

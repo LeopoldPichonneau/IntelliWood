@@ -1,0 +1,46 @@
+---
+title: "IntelliWood"
+description: "Integrated monitoring and management system for wood pellet heating"
+icon: "fire"
+---
+
+## What is IntelliWood?
+
+IntelliWood is an integrated monitoring and management system designed for wood pellet heating installations. Widely used in the Baltic region, these systems rely on a stove equipped with automatic ignition and an auger-driven feeding mechanism.
+
+The stove draws fuel from a metal bunker with limited capacity. Maintaining a minimum fuel level is critical: if the bunker empties, the automatic ignition system keeps trying to ignite without fuel, eventually destroying the ignition stick and requiring a costly hardware replacement.
+
+## Four core features
+
+<CardGroup cols={2}>
+  <Card title="Ambient Sensing & Safety" icon="temperature-half" href="/subsystems/ambient-sensing">
+    Monitor CO2, temperature, humidity, smoke and flames in the storage room.
+  </Card>
+  <Card title="Secure Access Control" icon="lock" href="/subsystems/access-control">
+    NFC lock system restricting entry to the storage area.
+  </Card>
+  <Card title="Storage Logging & Forecasting" icon="chart-line" href="/subsystems/storage-logging">
+    3D-printed logging unit tracking pellet bag inventory and predicting critical levels.
+  </Card>
+  <Card title="Dashboard & Weather" icon="gauge" href="/subsystems/dashboard">
+    Mobile companion app with consumption forecasts cross-referenced with weather data.
+  </Card>
+</CardGroup>
+
+## System architecture
+
+All subsystems transmit data over Wi-Fi to a central server (Raspberry Pi) that:
+
+- Complements ESP32-S2 data with real-time weather variables (temperature, wind speed)
+- Hosts data for the companion mobile application
+- Provides an overview of storage levels, sensor readings, and maintenance alerts
+
+<Card title="View full architecture" icon="diagram-project" href="/architecture" horizontal>
+  Understand how all components interconnect.
+</Card>
+
+## Get started
+
+<Card title="Quickstart guide" icon="rocket" href="/quickstart" horizontal>
+  Set up and deploy IntelliWood in a few steps.
+</Card>

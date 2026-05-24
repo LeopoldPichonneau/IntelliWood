@@ -1,0 +1,53 @@
+---
+title: "NFC Reader"
+description: "RFID-RC522 reader for access control to the storage room"
+icon: "id-card"
+---
+
+## Description
+
+This node reads NFC/RFID cards using an RFID-RC522 reader connected to a Wemos D1 Mini. It is part of the secure access control subsystem of IntelliWood.
+
+**Subsystem:** [Secure Access Control](/subsystems/access-control)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | Wemos D1 Mini |
+| Reader | RFID-RC522 |
+| Interface | SPI |
+| Power | 3.3V |
+
+## Wiring
+
+| RC522 pin | Wemos D1 Mini pin |
+|-----------|------------------|
+| 3.3V | 3.3V |
+| GND | GND |
+| SDA/SS | — |
+| SCK | — |
+| MOSI | — |
+| MISO | — |
+| RST | — |
+
+<Note>
+  Specific SPI pins are to be defined based on the physical wiring of the node.
+</Note>
+
+## MQTT topic
+
+| Topic | Format | Description |
+|-------|--------|-------------|
+| `NFC-reader/card` | `<uid_hex>` | UID of the card read, published on each scan |
+
+## How it works in the scenario
+
+1. A user places their NFC card near the reader
+2. The node publishes the UID to the MQTT topic
+3. The central server checks the UID against the authorized access list
+4. If authorized, the server sends an unlock command to the [Locker](/nodes/locker) node
+
+## Access management
+
+The list of authorized UIDs is managed server-side. To add or revoke access, simply update this list without modifying the node firmware.

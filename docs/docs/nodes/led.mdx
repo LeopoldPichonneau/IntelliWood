@@ -1,0 +1,47 @@
+---
+title: "RGB LED"
+description: "Visual status and alert indicator for the system"
+icon: "lightbulb"
+---
+
+## Description
+
+This node controls an RGB LED connected to a Wemos D1 Mini. It provides immediate visual feedback about the system state, with different colors depending on the current state or alert condition.
+
+**Subsystem:** [Storage Logging & Forecasting](/subsystems/storage-logging)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | Wemos D1 Mini (ESP32) |
+| Actuator | Common-cathode RGB LED |
+| Resistors | One per channel (red, green, blue) |
+
+## Wiring
+
+| Channel | Connection |
+|---------|-----------|
+| Red | Pin TBD + resistor |
+| Green | Pin TBD + resistor |
+| Blue | Pin TBD + resistor |
+| GND | GND |
+
+## MQTT topic
+
+| Topic | Format | Description |
+|-------|--------|-------------|
+| `LED/rgb/set` | `R,G,B` | Values 0–255 for each channel |
+
+## Recommended color codes
+
+| State | Color | RGB value |
+|-------|-------|-----------|
+| System active | Green | `0,255,0` |
+| Threshold approaching | Orange | `255,165,0` |
+| Critical alarm | Blinking red | `255,0,0` |
+| Inactive | Off | `0,0,0` |
+
+## Use in the scenario
+
+The LED works in tandem with the [Alarm Buzzer](/nodes/alarm-buzzer) for audio-visual alerts. When a critical pellet level alert is triggered, the LED blinks red to draw attention even without network connectivity, as the ESP32-S2 manages the blinking locally.

@@ -1,0 +1,62 @@
+---
+title: "Dashboard & Weather Forecasting"
+description: "Mobile app and consumption forecasts enriched with weather data"
+icon: "gauge"
+---
+
+## Overview
+
+The central server (Raspberry Pi) aggregates data from all nodes and exposes it via a REST API to the companion mobile app. Pellet consumption is correlated with weather data to produce accurate forecasts.
+
+## Dashboard features
+
+<CardGroup cols={2}>
+  <Card title="Stock levels" icon="boxes-stacked">
+    Real-time view of remaining bag count and consumption history.
+  </Card>
+  <Card title="Ambient sensors" icon="thermometer">
+    Temperature, humidity and CO2 from the storage room.
+  </Card>
+  <Card title="Door control" icon="door-open">
+    Remote unlocking of the storage room.
+  </Card>
+  <Card title="Maintenance alerts" icon="bell">
+    Push notifications for critical thresholds and detected anomalies.
+  </Card>
+</CardGroup>
+
+## Consumption forecasting
+
+The server cross-references:
+
+| Data source | Usage |
+|-------------|-------|
+| Consumption history (Keypad `.csv` file) | Average consumption rate |
+| Outdoor temperature (weather API) | Heating/cold correlation |
+| Wind speed (weather API) | Wind chill factor |
+
+This model accurately predicts when the bunker will reach a critical threshold, accounting for seasonal variations.
+
+## Alert flow
+
+```
+Critical threshold predicted
+        ↓
+┌───────┴───────┐
+↓               ↓
+Push            Response sent
+notification    to ESP32-S2
+to mobile app   (datetime)
+```
+
+Both alert channels are complementary: the mobile notification reaches the user wherever they are, while the local alert (buzzer + LED) works independently of phone connectivity.
+
+## Raspberry Pi roles
+
+The Raspberry Pi simultaneously acts as:
+
+1. **MQTT broker** — collection point for all node messages
+2. **REST API** — exposes data to the mobile app
+3. **Database** — stores sensor history
+4. **Forecasting engine** — computes consumption forecasts
+5. **Weather gateway** — calls external weather APIs

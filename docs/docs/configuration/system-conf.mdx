@@ -1,0 +1,62 @@
+---
+title: "system.conf"
+description: "Global Wi-Fi network and MQTT broker configuration"
+icon: "gear"
+---
+
+## Overview
+
+The `system.conf` file at the project root contains the network configuration shared by all IoTempower nodes. Every deployed node inherits these settings.
+
+## Reference file
+
+```bash
+# /IntelliWood/system.conf
+
+# Your Wi-Fi network name
+IOTEMPOWER_AP_NAME="iot14"
+
+# Your Wi-Fi password
+IOTEMPOWER_AP_PASSWORD="iotempire"
+
+# MQTT broker address
+# Option 1: OpenWRT router with mosquitto
+IOTEMPOWER_MQTT_HOST="_gateway"
+
+# Option 2: mosquitto on your computer
+# IOTEMPOWER_MQTT_HOST="192.168.1.100"
+```
+
+## Parameters
+
+<ParamField path="IOTEMPOWER_AP_NAME" type="string" required>
+  The SSID of the Wi-Fi network all nodes will connect to.
+</ParamField>
+
+<ParamField path="IOTEMPOWER_AP_PASSWORD" type="string" required>
+  The Wi-Fi network password.
+</ParamField>
+
+<ParamField path="IOTEMPOWER_MQTT_HOST" type="string" required>
+  The MQTT broker address. Two options:
+  - `_gateway`: automatic resolution via the router (recommended if mosquitto is on the router)
+  - Fixed IP address: if `mqtt_starter` is running on a computer or Raspberry Pi
+</ParamField>
+
+## Finding your local IP address
+
+If you are running `mqtt_starter` on your machine:
+
+```bash
+# Linux / macOS
+ip a
+
+# Windows
+ipconfig
+```
+
+The address is also displayed when `mqtt_starter` starts.
+
+<Note>
+  If the broker is on a computer with a firewall, open port **1883** for incoming MQTT connections.
+</Note>

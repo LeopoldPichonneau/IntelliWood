@@ -1,0 +1,62 @@
+---
+title: "Smoke Sensor"
+description: "Combustible gas and smoke detection via MQ2 sensor"
+icon: "fire-smoke"
+---
+
+## Description
+
+This node detects combustible gases and smoke using an MQ2 sensor connected to an M5StickC Plus 1.1. It is part of the early warning fire detection system.
+
+**Subsystem:** [Ambient Sensing & Safety](/subsystems/ambient-sensing)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | M5StickC Plus 1.1 |
+| Sensor | MQ2 (combustible gases + smoke) |
+| Interface | Analog (AO) + Digital (DO) |
+| Power | 5V required for internal heater |
+
+## Wiring
+
+| MQ2 pin | M5StickC pin |
+|---------|-------------|
+| VCC | 5V |
+| GND | GND |
+| AO | G36 (ADC) |
+| DO | G26 (digital GPIO) |
+
+<Warning>
+  The MQ2 sensor requires a **warm-up time of 5–10 minutes** before providing valid readings. Do not rely on measurements immediately after power-on.
+</Warning>
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+input(smoke, 39, "smoke detected", "no smoke");
+```
+
+The reading is binary: `smoke detected` when the LM393 comparator's hardware threshold is exceeded.
+
+## MQTT topic
+
+| Topic | Possible values |
+|-------|----------------|
+| `smoke-sensor/smoke` | `smoke detected` / `no smoke` |
+
+## How it works
+
+The MQ2 uses a **tin dioxide (SnO₂)** sensing element. When combustible gases contact the heated element, its resistance decreases proportionally to gas concentration. The built-in LM393 comparator converts this analog signal into a binary digital output.
+
+**Sensitivity adjustment**: the blue potentiometer on the module sets the detection threshold to avoid false positives from sunlight or heaters.
+
+## Detectable gases
+
+- LPG (propane, butane)
+- Methane
+- Smoke
+- Alcohol vapors
+- Hydrogen

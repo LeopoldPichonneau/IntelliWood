@@ -1,0 +1,103 @@
+---
+title: "Keypad"
+description: "MPR121 capacitive touch interface for pellet stock input"
+icon: "keyboard"
+---
+
+## Description
+
+This node is a capacitive touch interface based on the MPR121 controller, connected to an ESP32-S2 via I2C. It allows the user to input the number of pellet bags used to refill the bunker.
+
+**Subsystem:** [Storage Logging & Forecasting](/subsystems/storage-logging)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | ESP32-S2 (Lolin S2 Mini) |
+| Touch controller | MPR121 Breakout Board |
+| Interface | I2C |
+| Power | Optimized for Deep Sleep |
+
+## Wiring
+
+| MPR121 pin | ESP32-S2 pin |
+|------------|-------------|
+| VCC | 3.3V |
+| GND | GND |
+| SCL | GPIO 5 |
+| SDA | GPIO 6 |
+| IRQ | Not connected |
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+pwm(alarm, 39, 2000);      // Built-in buzzer
+mpr121(cap).i2c(5, 6);     // Capacitive keypad
+```
+
+```
+# node.conf
+board="lolin s2 mini"
+```
+
+## MQTT topics
+
+| Topic | Format | Description |
+|-------|--------|-------------|
+| `Keypad/cap` | `000000000000` | 12 bits, one per electrode (0=untouched, 1=touched) |
+| `Keypad/alarm/set` | `0` / `200` | Built-in buzzer command |
+
+## Deep Sleep and power consumption
+
+The ESP32-S2 stays in **Deep Sleep** between inputs (~29 µA). Wake-up is triggered by a hardware interrupt (button pressed), enabling long battery life.
+
+## First flash — Download Mode
+
+<Warning>
+  The ESP32-S2 may require **Download Mode** on first flash.
+</Warning>
+
+1. Plug the ESP32-S2 via USB
+2. Hold the **0** button
+3. Press and release **RST**
+4. Release the **0** button
+5. Verify detection: `ls /dev/ttyACM*`
+6. Run the serial flash:
+
+```bash
+cd Keypad
+deploy serial
+```
+
+Subsequent deployments can be done OTA:
+
+```bash
+deploy
+```
+
+## Known bug in IoTempower
+
+There is a bug in the IoTempower source file `dev_mpr121.cpp` that prevents consecutive presses on the same button from working. Apply the following fix in `build/src/dev_mpr121.cpp`:
+
+```cpp
+bool MPR121::measure() {
+    uint16_t touched = sensor->touched();
+
+    ulog(F("Meaningless print")); // Without this line, repeated presses on the same button don't register
+
+    value(0).clear();
+    for (int i = 0; i < 12; i++) {
+        if (touched & 2048) {
+            value(0).add(F("1"));
+        } else {
+            value(0).add(F("0"));
+        }
+        touched = touched << 1;
+    }
+    return true;
+}
+```
+
+Redeploy after applying the fix.

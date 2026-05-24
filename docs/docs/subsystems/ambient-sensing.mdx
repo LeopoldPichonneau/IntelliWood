@@ -1,0 +1,47 @@
+---
+title: "Ambient Sensing & Safety"
+description: "Air quality monitoring and fire detection in the storage room"
+icon: "temperature-half"
+---
+
+## Overview
+
+The ambient sensing subsystem continuously monitors environmental conditions in the wood pellet storage room. Since pellets are flammable and sensitive to humidity, this subsystem plays a critical role for both storage quality and safety.
+
+## Nodes involved
+
+<CardGroup cols={2}>
+  <Card title="CO2 / Temperature / Humidity" icon="cloud" href="/nodes/co2-sensor">
+    SCD4x sensor connected to an M5StickC Plus via I2C
+  </Card>
+  <Card title="Smoke Detector" icon="fire-smoke" href="/nodes/smoke-sensor">
+    MQ2 sensor for combustible gas detection
+  </Card>
+  <Card title="Flame Detector" icon="fire" href="/nodes/flame-detector">
+    Infrared sensor for direct flame detection
+  </Card>
+  <Card title="PIR Detector" icon="person-running" href="/nodes/pir-detector">
+    Motion detection via passive infrared
+  </Card>
+</CardGroup>
+
+## Why monitor humidity?
+
+High humidity degrades wood pellets and reduces their heating performance. By continuously monitoring temperature and relative humidity, IntelliWood allows intervention before pellets are damaged.
+
+## Fire alert response
+
+When an anomaly is detected (smoke, flame, or high CO2), the system immediately triggers push notifications to the companion mobile app.
+
+The smoke and flame sensors work as a pair to minimize false positives:
+- The MQ2 sensor detects combustible gases and smoke
+- The infrared sensor confirms the presence of a flame
+
+## Published MQTT topics
+
+| Topic | Values | Description |
+|-------|--------|-------------|
+| `C02-Temperature-Humidity-sensor/gas` | `co2_ppm,temp_C,humidity_%` | Periodic SCD4x reading |
+| `smoke-sensor/smoke` | `smoke detected` / `no smoke` | MQ2 binary threshold |
+| `Flame-detector/flame` | `flame detected` / `no flame` | Infrared detection |
+| `PIR-detector/pir` | `motion detected` / `no motion` | Presence in storage room |

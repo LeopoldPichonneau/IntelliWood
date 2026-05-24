@@ -1,0 +1,54 @@
+---
+title: "Flame Detector"
+description: "Infrared radiation and direct flame detection"
+icon: "fire"
+---
+
+## Description
+
+This node detects flames and intense heat sources using a photodiode sensitive to infrared radiation (760–1100 nm), connected to an M5StickC Plus 1.1.
+
+**Subsystem:** [Ambient Sensing & Safety](/subsystems/ambient-sensing)
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| Microcontroller | M5StickC Plus 1.1 |
+| Sensor | MH-series infrared sensor (photodiode) |
+| Interface | Digital (DO) + Analog (AO) |
+| Spectral range | 760 nm – 1100 nm |
+
+## Wiring
+
+| Sensor pin | M5StickC pin |
+|------------|-------------|
+| VCC | 5V or 3.3V |
+| GND | GND |
+| DO | G26 (binary alarm) |
+| AO | G36 (intensity) |
+
+## IoTempower configuration
+
+```cpp
+// setup.cpp
+input(flame, 39, "no flame", "flame detected").with_debounce(5);
+```
+
+A debounce of **5 ms** prevents spurious triggers from rapid light fluctuations.
+
+## MQTT topic
+
+| Topic | Possible values |
+|-------|----------------|
+| `Flame-detector/flame` | `flame detected` / `no flame` |
+
+## Operating modes
+
+**Digital mode (DO)** — The LM393 comparator compares the raw signal against the threshold set by the potentiometer. Produces an instantaneous binary signal for alarm triggering.
+
+**Analog mode (AO)** — Measures the intensity of infrared radiation to estimate the size or distance of the flame. Value from 0 to 4095 on the ESP32 ADC.
+
+## Sensitivity adjustment
+
+The blue potentiometer on the module sets the detection threshold. Too low a threshold generates false positives (sunlight, radiators); too high a threshold may miss a real flame. Calibrate under the normal lighting conditions of the storage room.
