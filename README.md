@@ -46,3 +46,5 @@ All sub-systems transmit data over a local Wi-Fi network to a central dedicated 
 - [@LeopoldPichonneau](https://github.com/LeopoldPichonneau)
 - [@KPPHC](https://github.com/KPPHC)
 - [@arthurmrimri-del](https://github.com/arthurmrimri-del)
+- [@Miriston](https://github.com/Miriston)
+
