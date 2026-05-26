@@ -8,18 +8,28 @@ Configuration Note: Rename the node_template folder to m5_flame_detector. Update
 
 Connected devices
 -----------------
+**ESP32-S2:** The central processing unit, used for visual/audible feedback and network communication.
 
-M5StickC Plus 1.1: The central processing unit, used for visual/audible feedback and network communication.
+**MH-Series Flame Sensor (Photodiode):**
 
-MH-Series Flame Sensor (Photodiode):
-
--VCC: Connected to the 5V or 3.3V pin of the M5Stick.
+-VCC: Connected to the 3.3V pin.
 
 -GND: Connected to the GND pin.
 
--DO (Digital Output): Connected to G26 (to trigger a binary alarm).
+-DO (Digital Output): Connected to 39 (to trigger a binary alarm).
 
--AO (Analog Output): Connected to G36 (to measure the intensity of the flame/heat).
+-AO (Analog Output): Connected to ??? (to measure the intensity of the flame/heat).
+
+
+Tutorial
+--------
+To run this, navigate to the node directory, and if this is your first deploy, then `deploy serial`. If you have done that, OTA should be enabled as long as you are within the same WiFi `deploy`.
+
+
+MQTT
+----
+This device will publish to the topic #/Flame-detector/flame either message "no flame" or "flame detected".
+
 
 Functionality
 -------------
@@ -30,7 +40,7 @@ Functionality
 
 ***-Threshold Comparison (Digital):*** Using the onboard LM393 chip, the node compares the raw analog signal from the photodiode against a manual setpoint. If the IR intensity exceeds the limit, it flips the digital output (DO) to signal an alert.
 
-***-Intensity Mapping (Analog):*** The node converts the physical flame brightness into a variable voltage (0V-5V). This allows the M5Stick to calculate exactly how large or how close the flame is.
+***-Intensity Mapping (Analog):*** The node converts the physical flame brightness into a variable voltage (0V-5V). This allows the MCU to calculate exactly how large or how close the flame is.
 
 Sensitivity Tuning: Via the blue onboard potentiometer, the user can hardware-calibrate the node to filter out background IR noise (like sunlight or heaters) to prevent false triggers.
 
