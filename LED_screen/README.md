@@ -1,3 +1,9 @@
+NOT IMPLEMENTED
+===============
+
+While this node was planned, it was not implemented due to time constraints.
+
+
 Node Description
 ================
 
