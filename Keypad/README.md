@@ -3,6 +3,8 @@ Node Description
 
 This node acts as a Multi-Point Capacitive Touch Interface. It uses a 12-button Keypad connected to a MPR121 and an ESP32-S2 to interface with the system. By using the keypad, the user inputs the amount (in kilograms) of wood granules removed from the storage. This is then published and picked up by the system and stored in persistent storage.
 
+At the same time it includes also a buzzer to give an audible alert when another node triggers an alarm condition.
+
 
 Connected devices
 -----------------
@@ -20,6 +22,15 @@ Connected devices
 - ***SDA:*** Connected to GPIO 6.
 
 - ***IRQ:*** Not connected.
+
+
+**Buzzer:**
+
+- **VCC+:** Connected to 3.3V ???
+
+- **VCC-:** Connected to GND.
+
+- **SIGNAL:** Connected to GPIO 39.
 
 
 Tutorial for pre-flashing the ESP32
@@ -97,7 +108,9 @@ After that, deploy again (either with `deploy serial` or `deploy`), and now it s
 
 MQTT
 ----
-This device will publish to the topic #/Keypad and the format will be 12-bit (e.g. 000000000000), with a 1 indicating which button is pressed. The mapping to bit and the actual keypad to be pressed is TODO.
+This device will publish to the topic `Keypad` and the format will be 12-bit (e.g. 000000000000), with a 1 indicating which button is pressed. The mapping to bit and the actual keypad to be pressed is TODO.
+
+The alarm can be configured by sending to `Keypad/alarm/frequency/set`. To turn it off, you can send the message `0`, and to turn it on, a message like `10`. At this point in time, the range of values has not been determined yet.
 
 
 Behavior
