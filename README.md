@@ -31,15 +31,11 @@ All sub-systems transmit data over a local Wi-Fi network to a central dedicated 
 - Temperature sensor
 - Smoke detector
 - Flame detector
-- PIR detector
 
 ### Devices list:
-- NFC reader
-- LED
 - Keypad
 - Alarm Buzzer
-- Screen
-- Locker
+- Dashboard
 
 ## Contributors
 
