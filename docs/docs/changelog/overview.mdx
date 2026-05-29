@@ -1,0 +1,26 @@
+---
+title: "Changelog"
+description: "Product updates and improvements to IntelliWood"
+---
+
+<Update label="2026-05-29" description="Week of May 25–29">
+
+## New features
+
+- **CO2 sensor node now available.** Real-time CO2 monitoring in the pellet storage room is live. See the [CO2 sensor](/nodes/co2-sensor) for setup details.
+- **PIR motion detector node now available.** Motion-based occupancy detection added to the ambient sensing subsystem. See the [PIR detector](/nodes/pir-detector).
+- **Flame detector node now available.** Early flame detection complements the smoke sensor for fire safety. See the [flame detector](/nodes/flame-detector).
+- **Keypad input is live.** Use the MPR121 capacitive keypad to log pellet bag refills directly at the bunker. See the [keypad](/nodes/keypad).
+
+## Updates
+
+- **Alarm buzzer merged into the keypad node.** The buzzer and keypad now run on a single ESP32-S2, reducing hardware cost and wiring. Existing buzzer wiring is unchanged — see the [keypad](/nodes/keypad) and [alarm buzzer](/nodes/alarm-buzzer) pages.
+- **Streamlined supported hardware list.** Nodes that are not yet implemented (LED, LED screen, locker, NFC reader) have been removed from the active hardware list to clarify what's production-ready today. They remain on the roadmap.
+- **MQTT topics and pinouts documented for all shipped nodes.** Every implemented node now publishes a documented topic schema — see [MQTT configuration](/configuration/mqtt).
+
+## Bug fixes
+
+- **Smoke sensor alert messages corrected.** The "smoke detected" and "clear" messages were swapped; the smoke sensor now reports the correct state.
+- **Buzzer pin assignment fixed.** Resolves an issue where the alarm buzzer would not trigger on certain wiring configurations.
+
+</Update>
