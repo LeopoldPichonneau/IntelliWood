@@ -1,0 +1,1 @@
+input(pir, 39, "no motion", "motion detected");

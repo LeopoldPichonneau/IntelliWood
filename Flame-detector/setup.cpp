@@ -1,0 +1,1 @@
+input(flame, 39, "no flame", "flame detected").with_debounce(5);
