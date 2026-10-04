@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="450" viewBox="0 0 1000 450" role="img" aria-label="IntelliWood architecture: ESP32-S2 nodes publish over MQTT to a Raspberry Pi server">
+  <defs></defs>
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+    .flow { stroke-dasharray: 4 7; animation: march 1.2s linear infinite; }
+    @keyframes march { to { stroke-dashoffset: -22 } }
+    .pulse { animation: pulse 3s ease-in-out infinite; } @keyframes pulse { 50% { opacity: .35 } }
+  </style>
+  <rect x="1" y="1" width="998" height="448" rx="20" fill="#f8f8f8" stroke="#e0e0e0"/>
+<path d="M240 66 C310.0 66 310.0 150 380 150" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M240 132 C310.0 132 310.0 178 380 178" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M240 198 C310.0 198 310.0 206 380 206" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M240 264 C310.0 264 310.0 234 380 234" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M240 330 C310.0 330 310.0 262 380 262" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M380 285 C310.0 285 310.0 345 240 345" fill="none" stroke="#1a1a1a" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M760 86 C690.0 86 690.0 150 620 150" fill="none" stroke="#777777" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<path d="M620 260 C690.0 260 690.0 316 760 316" fill="none" stroke="#3f7d2e" stroke-opacity=".35" stroke-width="1.5" class="flow"/>
+<g><rect x="30" y="40" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="46" cy="57" r="4" fill="#3f7d2e" class="pulse"/><text x="60" y="61" font-size="13" font-weight="700" fill="#121212">CO2 · Temp · Humidity</text><text x="46" y="80" font-size="11" fill="#6b6b6b">ESP32-S2</text></g>
+<g><rect x="30" y="106" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="46" cy="123" r="4" fill="#3f7d2e" class="pulse"/><text x="60" y="127" font-size="13" font-weight="700" fill="#121212">Smoke detector</text><text x="46" y="146" font-size="11" fill="#6b6b6b">ESP32-S2</text></g>
+<g><rect x="30" y="172" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="46" cy="189" r="4" fill="#3f7d2e" class="pulse"/><text x="60" y="193" font-size="13" font-weight="700" fill="#121212">Flame detector</text><text x="46" y="212" font-size="11" fill="#6b6b6b">ESP32-S2</text></g>
+<g><rect x="30" y="238" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="46" cy="255" r="4" fill="#3f7d2e" class="pulse"/><text x="60" y="259" font-size="13" font-weight="700" fill="#121212">PIR detector</text><text x="46" y="278" font-size="11" fill="#6b6b6b">ESP32-S2</text></g>
+<g><rect x="30" y="304" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="46" cy="321" r="4" fill="#3f7d2e" class="pulse"/><text x="60" y="325" font-size="13" font-weight="700" fill="#121212">Keypad + buzzer</text><text x="46" y="344" font-size="11" fill="#6b6b6b">ESP32-S2 · Deep Sleep</text></g>
+<g><rect x="30" y="372" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#1a1a1a" stroke-opacity="0.35" stroke-dasharray="5 5"/><circle cx="46" cy="389" r="4" fill="#1a1a1a" class="pulse"/><text x="60" y="393" font-size="13" font-weight="700" fill="#121212">Planned nodes</text><text x="46" y="412" font-size="11" fill="#6b6b6b">NFC · Lock · LED · Screen</text></g>
+<g><rect x="380" y="110" width="240" height="190" rx="12" fill="#f5f5f5" stroke="#777777" stroke-opacity="0.55"/><circle cx="396" cy="127" r="4" fill="#777777" class="pulse"/><text x="410" y="131" font-size="13" font-weight="700" fill="#121212">Central Server</text><text x="396" y="288" font-size="11" fill="#6b6b6b">Raspberry Pi</text><text x="410" y="156" font-size="12" fill="#6b6b6b">MQTT broker</text><circle cx="398" cy="152" r="2.5" fill="#777777" fill-opacity=".6"/><text x="410" y="178" font-size="12" fill="#6b6b6b">Weather forecasts</text><circle cx="398" cy="174" r="2.5" fill="#777777" fill-opacity=".6"/><text x="410" y="200" font-size="12" fill="#6b6b6b">REST API</text><circle cx="398" cy="196" r="2.5" fill="#777777" fill-opacity=".6"/><text x="410" y="222" font-size="12" fill="#6b6b6b">Database · Dashboard</text><circle cx="398" cy="218" r="2.5" fill="#777777" fill-opacity=".6"/></g>
+<g><rect x="760" y="60" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#777777" stroke-opacity="0.55"/><circle cx="776" cy="77" r="4" fill="#777777" class="pulse"/><text x="790" y="81" font-size="13" font-weight="700" fill="#121212">Weather agencies</text><text x="776" y="100" font-size="11" fill="#6b6b6b">temperature · wind</text></g>
+<g><rect x="760" y="290" width="210" height="52" rx="12" fill="#f5f5f5" stroke="#3f7d2e" stroke-opacity="0.55"/><circle cx="776" cy="307" r="4" fill="#3f7d2e" class="pulse"/><text x="790" y="311" font-size="13" font-weight="700" fill="#121212">Companion app</text><text x="776" y="330" font-size="11" fill="#6b6b6b">levels · alerts · forecasts</text></g>
+<text x="250" y="30" font-size="11" fill="#6b6b6b" text-anchor="start">MQTT over Wi-Fi</text>
+<text x="255" y="392" font-size="11" fill="#1a1a1a" text-anchor="start">forecast datetime → Keypad</text>
+<circle cx="380" cy="426" r="4" fill="#3f7d2e"/><text x="392" y="430" font-size="12" fill="#6b6b6b">sensor data</text>
+<circle cx="505.4" cy="426" r="4" fill="#1a1a1a"/><text x="517.4" y="430" font-size="12" fill="#6b6b6b">forecast reply</text>
+<circle cx="653.0" cy="426" r="4" fill="#777777"/><text x="665.0" y="430" font-size="12" fill="#6b6b6b">weather data</text>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="0.0s" repeatCount="indefinite" path="M240 66 C310.0 66 310.0 150 380 150"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="0.0s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="0.55s" repeatCount="indefinite" path="M240 132 C310.0 132 310.0 178 380 178"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="0.55s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="1.1s" repeatCount="indefinite" path="M240 198 C310.0 198 310.0 206 380 206"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="1.1s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="1.6500000000000001s" repeatCount="indefinite" path="M240 264 C310.0 264 310.0 234 380 234"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="1.6500000000000001s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="2.2s" repeatCount="indefinite" path="M240 330 C310.0 330 310.0 262 380 262"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="2.2s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#1a1a1a"><animateMotion dur="3s" begin="1.2s" repeatCount="indefinite" path="M380 285 C310.0 285 310.0 345 240 345"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="1.2s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#777777"><animateMotion dur="3s" begin="0.4s" repeatCount="indefinite" path="M760 86 C690.0 86 690.0 150 620 150"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="0.4s" repeatCount="indefinite"/></circle>
+<circle r="4" fill="#3f7d2e"><animateMotion dur="3s" begin="1.6s" repeatCount="indefinite" path="M620 260 C690.0 260 690.0 316 760 316"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle>
+</svg>

@@ -1,16 +1,23 @@
-# IntelliWood
-
-Integrated monitoring and management system for wood granule heating and storage.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/light/hero.svg">
+    <img src="docs/assets/hero.svg" alt="IntelliWood — integrated monitoring for wood granule heating and storage" width="830" />
+  </picture>
+</p>
 
 ## Table of contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Hardware](#hardware)
-- [Architecture](#architecture)
-- [Getting started](#getting-started)
-- [MQTT reference](#mqtt-reference)
-- [Contributors](#contributors)
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Hardware](#hardware)
+4. [Architecture](#architecture)
+5. [Getting started](#getting-started)
+6. [MQTT reference](#mqtt-reference)
+7. [Contributors](#contributors)
+
+---
+
+Integrated monitoring and management system for wood granule heating and storage.
 
 ## Overview
 
@@ -79,26 +86,12 @@ All implemented nodes communicate via **MQTT** over the local Wi-Fi network with
 1. Complements sensor data with real-time variables from local weather agencies (temperature, wind speed) to create accurate fuel consumption predictions.
 2. Hosts the data for the companion mobile application, providing a real-time overview of storage and fuel levels, ambient sensor readings, maintenance alerts and refill forecasts.
 
-```
-┌──────────────────────────────────────────────────────┐
-│                   Central Server                      │
-│                  (Raspberry Pi)                       │
-│  - MQTT Broker        - REST API                     │
-│  - Weather forecasts  - Database / Dashboard         │
-└───────────┬──────────────────┬───────────────────────┘
-            │     Wi-Fi / MQTT │
-   ┌────────┴────────┐   ┌─────┴───────────────┐
-   │ Implemented     │   │ Planned (roadmap)    │
-   │ nodes           │   │ nodes                │
-   │                 │   │                      │
-   │ • CO2/Temp/Hum  │   │ • NFC reader         │
-   │ • Smoke detector│   │ • Electronic lock    │
-   │ • Flame detector│   │ • LED                │
-   │ • PIR detector  │   │ • Screen             │
-   │ • Keypad+Buzzer │   │                      │
-   │   (Deep Sleep)  │   │                      │
-   └─────────────────┘   └──────────────────────┘
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/light/architecture.svg">
+    <img src="docs/assets/architecture.svg" alt="IntelliWood architecture: ESP32-S2 nodes publish over MQTT to a Raspberry Pi server that adds weather forecasts and feeds the companion app" width="830" />
+  </picture>
+</p>
 
 All nodes are built around the **ESP32-S2** microcontroller, with built-in Wi-Fi connectivity:
 
@@ -117,6 +110,13 @@ All nodes are built around the **ESP32-S2** microcontroller, with built-in Wi-Fi
 
 ### 1. Configure the network
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/light/step-1.svg">
+    <img src="docs/assets/step-1.svg" alt="Step 1 of 3" width="700" />
+  </picture>
+</p>
+
 Edit `system.conf` at the project root with your Wi-Fi credentials and MQTT broker address:
 
 ```bash
@@ -130,6 +130,13 @@ IOTEMPOWER_MQTT_HOST="_gateway"
 
 ### 2. Flash a node
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/light/step-2.svg">
+    <img src="docs/assets/step-2.svg" alt="Step 2 of 3" width="700" />
+  </picture>
+</p>
+
 Each node lives in its own subfolder (`setup.cpp`, `node.conf`, `key.txt`, `README.md`). For a board that has never run IoTempower, do an initial serial flash, then deploy over the air for subsequent updates:
 
 ```bash
@@ -141,6 +148,13 @@ deploy          # subsequent updates, over the air
 > The ESP32-S2 (Keypad) may need **Download Mode**: hold **0**, press and release **RST**, then release **0**. Check it's detected with `ls /dev/ttyACM*`.
 
 ### 3. Start the MQTT broker and listen
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/light/step-3.svg">
+    <img src="docs/assets/step-3.svg" alt="Step 3 of 3" width="700" />
+  </picture>
+</p>
 
 ```bash
 mqtt_starter scanif   # start the broker, in a separate terminal
